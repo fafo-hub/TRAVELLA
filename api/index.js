@@ -60,7 +60,7 @@ app.use((err,req,res,next)=>{
 })
 
 
-app.listen(8800, () => {
+app.listen(3000, () => {
     connect()
-    console.log(`starting on port port 8800`)
+    console.log(`starting on port port 3000`)
 })
