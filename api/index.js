@@ -13,10 +13,10 @@ const app = express()
 dotenv.config()
 
 //const cors = require('cors');
-app.use(cors({
-    origin: 'http://localhost:3000/',
-    credentials: true
-}));
+// app.use(cors({
+//     origin: 'http://localhost:3000/',
+//     credentials: true
+// }));
 
 
 const connect = async () => {
@@ -28,7 +28,17 @@ const connect = async () => {
       }
 }
 
-app.get("/", (req, res) => {})
+app.get("/", (req, res) => {
+  res.status(200).send({
+    message: 'Hello, WELCOME TO TRAVELLA!'
+  })
+})
+
+// app.get('/', async (req, res) => {
+//   res.status(200).send({
+//     message: 'Hello from My Helper App!'
+//   })
+// })
 
 // mongoose.connection.on("connected", () => {
 //   console.log("mongoDM connected");
