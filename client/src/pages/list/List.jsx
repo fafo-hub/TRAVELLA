@@ -149,9 +149,14 @@ const List = () => {
                         "loading"
                       ) : (
                         <>
-                          {data.map((item) => (
+                          {data ? data.map((item) => (
                             <SearchItem item={item} key={item._id} />
-                          ))}
+                          ))
+                        :
+                        (
+                          <div>No data</div>
+                        )
+                        }
                         </>
                       )}
                     </div>
