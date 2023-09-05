@@ -15,7 +15,7 @@ const FeaturedProperties = () => {
         </>
       ) : (
         <>
-          { data && data.slice(0, 4).map((item) => (
+          { (data ?? []).slice(0, 4).map((item) => (
             <div className="fpItem" key={item._id}>
               <img
                 src={item.photos[0]}
