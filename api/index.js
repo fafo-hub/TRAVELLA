@@ -13,10 +13,10 @@ const app = express()
 dotenv.config()
 
 //const cors = require('cors');
-// app.use(cors({
-//     origin: 'http://localhost:3000/',
-//     credentials: true
-// }));
+app.use(cors({
+    origin: '*',
+    credentials: true
+}));
 
 
 const connect = async () => {

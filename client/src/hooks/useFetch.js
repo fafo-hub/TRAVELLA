@@ -5,16 +5,19 @@ const UseFetch = (url) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const baseURL = process.env.REACT_APP_API_URL
+  console.log(baseURL);
+
   useEffect(() => {
     localStorage.setItem("datas", JSON.stringify(data));
   }, [data]);
-  //console.log(JSON.parse(localStorage.getItem("datas")));
-  //console.log(data);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(url);
+        const res = await axios.get(baseURL + url);
        localStorage.setItem("datas", JSON.stringify(res.data));
        const savedRes = JSON.parse(localStorage.getItem("datas"))
         setData(savedRes);
