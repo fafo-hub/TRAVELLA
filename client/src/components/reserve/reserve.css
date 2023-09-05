@@ -28,6 +28,8 @@
     align-items: center;
     gap: 50px;
     padding: 20px;
+
+    justify-content: space-between;
   }
   
   .rInfo {
@@ -75,4 +77,12 @@
     border-radius: 5px;
     width: 100%;
     margin-top: 20px;
+  }
+
+  .rButton:disabled {
+    cursor: not-allowed;
+  }
+
+   .emoji {
+    width: 30%;
   }

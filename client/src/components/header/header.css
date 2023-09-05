@@ -1,9 +1,13 @@
 .header {
-  background-color: #003580;
+  /* background-color: #003580; */
   color: white;
   display: flex;
   justify-content: center;
   position: relative;
+  /* background: url("https://img.freepik.com/premium-photo/tropical-maldives-island-with-white-sandy-beach-sea_87394-5742.jpg?size=626&ext=jpg&ga=GA1.2.960183839.1681590785&semt=ais");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; */
 }
 
 .headerContainer {
@@ -26,7 +30,14 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
+
+.headerListItem:hover {
+  gap: 15px;
+  font-size: 17px;
+}
+
 
 .headerListItem.active {
   border: 1px solid white;
@@ -45,10 +56,19 @@
   border: none;
   padding: 10px;
   cursor: pointer;
+
+  border-radius: 5px;
+  width: 80px;
+  height: 43px;
+}
+
+.headerBtn:disabled {
+  cursor: not-allowed;
 }
 
 .headerSearch {
   height: 30px;
+  height: 62px;
   background-color: white;
   border: 3px solid #febb02;
   display: flex;
@@ -72,10 +92,16 @@
   gap: 10px;
 }
 
+
 .headerSearchInput {
   border: none;
   outline: none;
 }
+
+.headerSearchInput::placeholder {
+  font-size: 14px;
+}
+
 
 .headerSearchText {
   color: lightgray;

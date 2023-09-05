@@ -10,7 +10,7 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UseFetch from "../../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/searchContext";
@@ -18,8 +18,9 @@ import Reserve from "../../components/reserve/Reserve";
 import { AuthContext } from "../../context/AuthContext";
 
 
+
 const Hotel = () => {
-  const location =  useLocation()
+  const location = useLocation()
   const id = location.pathname.split("/")[2];
   //console.log(location);
   const [slideNumber, setSlideNumber] = useState(0);
@@ -27,6 +28,7 @@ const Hotel = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const { data, loading, error } = UseFetch(`/hotels/find/${id}`);
+  //console.log(data);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -79,16 +81,97 @@ const Hotel = () => {
   // };
 
   const { dates, options } = useContext(SearchContext);
+  //console.log(dates);
+  //console.log(JSON.parse(localStorage.getItem("dates")));
+
+  // localStorage.setItem("oldDays", JSON.stringify(days));
+  // console.log(JSON.parse(localStorage.getItem("oldDays")));
+
+
+
+  // function formatDateToCustomFormat(isoDateString) {
+  //   const isoDate = new Date(isoDateString);
+  //   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  //   const months = [
+  //     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  //   ];
+
+  //   const dayOfWeek = daysOfWeek[isoDate.getUTCDay()];
+  //   const month = months[isoDate.getUTCMonth()];
+  //   const day = isoDate.getUTCDate();
+  //   const year = isoDate.getUTCFullYear();
+  //   const hours = isoDate.getUTCHours();
+  //   const minutes = isoDate.getUTCMinutes();
+  //   const seconds = isoDate.getUTCSeconds();
+  //   const timeZoneOffset = isoDate.toString().match(/([A-Z]+[\+-][0-9]+.*)/)[1];
+
+  //   const formattedDate = `${dayOfWeek} ${month} ${day} ${year} ${hours}:${minutes}:${seconds} ${timeZoneOffset}`;
+  //   return { formattedDate, timestamp: isoDate.getTime() };
+  // }
+
+  // const isoDateString = start; // Assuming "start" contains your ISO date string
+  // const { formattedDate, timestamp } = formatDateToCustomFormat(isoDateString);
+  // console.log(formattedDate);
+  // console.log(timestamp);
+
+
+
+  // console.log(Math.abs(start));
+  // console.log(end);
+
+  //const isoDateString = "2023-09-08T23:00:00.000Z";
+  //   const newIsoDateString = start;
+  //   const endIsoDateString = end;
+  // const newIsoDate = new Date(newIsoDateString);
+  // const oldIsoDate = new Date(endIsoDateString);
+
+  // const optionss = {
+  //   weekday: "short",
+  //   year: "numeric",
+  //   month: "short",
+  //   day: "2-digit",
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  //   second: "2-digit",
+  //   timeZoneName: "short",
+  // };
+
+  // const newStart = newIsoDate.toLocaleString("en-US", optionss);
+  // const newEnd = oldIsoDate.toLocaleString("en-US", optionss);
+  // console.log(newStart);
+  // console.log(newEnd);
+  console.log(JSON.parse(localStorage.getItem("dates"))[0]);
+  const start = JSON.parse(localStorage.getItem("dates"))[0].startDate
+  const end = JSON.parse(localStorage.getItem("dates"))[0].endDate
+
+  const dateString = "2023-09-08T23:00:00.000Z";
+  const dateObject = new Date(dateString);
+  // const timestamp = dateObject.getTime();
+
+  // console.log(timestamp);
+  const newStart = new Date(start)
+  const newEnd = new Date(end)
+  console.log(newStart.getTime());
+  localStorage.setItem("savedStart", JSON.stringify(newStart));
+  localStorage.setItem("savedEnd", JSON.stringify(newEnd));
+  console.log(JSON.parse(localStorage.getItem("savedStart")));
+  console.log(JSON.parse(localStorage.getItem("savedEnd")));
+
+
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
     const timeDiff = Math.abs(date2.getTime() - date1.getTime());
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+
+    console.log(date2.getTime());
     return diffDays;
   }
+  console.log(dates[0].startDate);
 
-  const days = dayDifference(dates[0].endDate, dates[0].startDate);
-  console.log(days * data.cheapestPrice * options.room);
+
+  const days = dayDifference(newEnd, newStart);
+  //console.log(days * data.cheapestPrice * options.room);
 
   const handleClick = () => {
     if (user) {
@@ -100,65 +183,71 @@ const Hotel = () => {
 
   return (
     <div>
-    <Navbar />
-    <Header type="list" />
-    {loading ? (
-      "loading"
-    ) : (
-      <div className="hotelContainer">
-        {open && (
-          <div className="slider">
-            <FontAwesomeIcon
-              icon={faCircleXmark}
-              className="close"
-              onClick={() => setOpen(false)}
-            />
-            <FontAwesomeIcon
-              icon={faCircleArrowLeft}
-              className="arrow"
-              onClick={() => handleMove("l")}
-            />
-            <div className="sliderWrapper">
-              <img
-                src={data.photos[slideNumber]}
-                alt=""
-                className="sliderImg"
+      <div className="navheaderwrap">
+        <Navbar />
+        <Header type="list" />
+      </div>
+      {loading ? (
+        <>
+          <div className="loading">
+            <img src="https://i.gifer.com/ZKZg.gif" alt="" />
+          </div>
+        </>
+      ) : (
+        <div className="hotelContainer">
+          {open && (
+            <div className="slider">
+              <FontAwesomeIcon
+                icon={faCircleXmark}
+                className="close"
+                onClick={() => setOpen(false)}
               />
-            </div>
-            <FontAwesomeIcon
-              icon={faCircleArrowRight}
-              className="arrow"
-              onClick={() => handleMove("r")}
-            />
-          </div>
-        )}
-        <div className="hotelWrapper">
-          <button onClick={handleClick} className="bookNow">Reserve or Book Now!</button>
-          <h1 className="hotelTitle">{data.name}</h1>
-          <div className="hotelAddress">
-            <FontAwesomeIcon icon={faLocationDot} />
-            <span>{data.address}</span>
-          </div>
-          <span className="hotelDistance">
-            Excellent location – {data.distance}m from center
-          </span>
-          <span className="hotelPriceHighlight">
-            Book a stay over ${data.cheapestPrice} at this property and get a
-            free airport taxi
-          </span>
-          <div className="hotelImages">
-            {data.photos?.map((photo, i) => (
-              <div className="hotelImgWrapper" key={i}>
+              <FontAwesomeIcon
+                icon={faCircleArrowLeft}
+                className="arrow"
+                onClick={() => handleMove("l")}
+              />
+              <div className="sliderWrapper">
                 <img
-                  onClick={() => handleOpen(i)}
-                  src={photo}
+                  src={data.photos[slideNumber]}
                   alt=""
-                  className="hotelImg"
+                  className="sliderImg"
                 />
               </div>
-            ))}
-          </div>
-          <div className="hotelDetails">
+              <FontAwesomeIcon
+                icon={faCircleArrowRight}
+                className="arrow"
+                onClick={() => handleMove("r")}
+              />
+            </div>
+          )}
+          <div className="hotelWrapper">
+            <button onClick={handleClick} className="bookNow">Reserve or Book Now!</button>
+            <h1 className="hotelTitle">{data.name}</h1>
+            <div className="hotelAddress">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <span>{data.address}</span>
+            </div>
+            <span className="hotelDistance">
+              Excellent location – {data.distance}m from center
+            </span>
+            <span className="hotelPriceHighlight">
+              Book a stay over ${data.cheapestPrice} at this property and get a
+              free airport taxi
+            </span>
+            <div className="hotelImages">
+              {data.photos?.slice(0, 3).map((photo, i) => (
+                <div className="hotelImgWrapper" key={i}>
+                  <img
+                    onClick={() => handleOpen(i)}
+                    src={photo}
+                    alt=""
+                    className="hotelImg"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="hotelDetails">
               <div className="hotelDetailsTexts">
                 <h1 className="hotelTitle">{data.title}</h1>
                 <p className="hotelDesc">{data.desc}</p>
@@ -170,19 +259,19 @@ const Hotel = () => {
                   excellent location score of 9.8!
                 </span>
                 <h2>
-                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                  <b>$ {(days * data.cheapestPrice * options.room).toLocaleString()}</b> ({days}{" "}
                   nights)
                 </h2>
                 <button onClick={handleClick}>Reserve or Book Now!</button>
               </div>
             </div>
+          </div>
+          <MailList />
+          <Footer />
         </div>
-        <MailList />
-        <Footer />
-      </div>
-    )}
-    {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
-  </div>
+      )}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} name={data.name} />}
+    </div>
   );
 };
 

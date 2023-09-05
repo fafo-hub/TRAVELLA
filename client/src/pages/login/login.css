@@ -30,3 +30,10 @@
     background-color: #0071c28c;
     cursor: not-allowed;
   }
+
+  .navheaderwrap {
+    background: url("https://img.freepik.com/premium-photo/tropical-maldives-island-with-white-sandy-beach-sea_87394-5742.jpg?size=626&ext=jpg&ga=GA1.2.960183839.1681590785&semt=ais");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }

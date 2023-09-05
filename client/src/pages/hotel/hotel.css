@@ -62,6 +62,8 @@
   width: 100%;
   object-fit: cover;
   cursor: pointer;
+
+  height: 100%;
 }
 
 .hotelDetails {
@@ -148,4 +150,15 @@
   font-size: 50px;
   color: lightgray;
   cursor: pointer;
+}
+
+.navheaderwrap {
+  background: url("https://img.freepik.com/premium-photo/tropical-maldives-island-with-white-sandy-beach-sea_87394-5742.jpg?size=626&ext=jpg&ga=GA1.2.960183839.1681590785&semt=ais");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.navbar {
+  justify-content: center;
 }

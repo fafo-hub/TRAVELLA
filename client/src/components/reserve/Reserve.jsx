@@ -3,17 +3,31 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import "./reserve.css";
 import useFetch from "../../hooks/useFetch";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../../context/searchContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import MyVerticallyCenteredModal from "../bootstrap/SuccessModal"
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Modal from 'react-bootstrap/Modal';
 
-const Reserve = ({ setOpen, hotelId }) => {
+
+
+const Reserve = ({ setOpen, hotelId, name }) => {
+  const location = useLocation()
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const [smShow, setSmShow] = useState(false);
+  const [roomNo, setRoomNo] = useState([])
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
+
   //http://localhost:8800/api/hotels/room/64be93f499b79e9fb37218c1
-  const { dates } = useContext(SearchContext);
-    console.log(dates);
+  const { dates, options } = useContext(SearchContext);
+  console.log(data);
+  //console.log(dates);
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -48,8 +62,19 @@ const Reserve = ({ setOpen, hotelId }) => {
         ? [...selectedRooms, value]
         : selectedRooms.filter((item) => item !== value)
     );
-  };
+    console.log(selectedRooms)
 
+    // console.log(value);
+    // console.log(checked);
+    // console.log(data);
+  };
+  useEffect(() => {
+    console.log(selectedRooms);
+  }, [selectedRooms])
+  console.log(options);
+
+  //console.log(location);
+  //selectedRooms.length == 0 ? console.log('e didnt dy') : console.log('e dy');
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -59,22 +84,43 @@ const Reserve = ({ setOpen, hotelId }) => {
           const res = axios.put(`/rooms/availability/${roomId}`, {
             dates: alldates,
           });
+          //toast.success("Success")
           return res.data;
         })
       );
-      setOpen(false);
-      navigate("/");
-    } catch (err) {}
+      //console.log('clicked')
+
+
+      //setOpen(false);
+      // <MyVerticallyCenteredModal />
+      setSmShow(true)
+      // Show the success notification after a brief delay
+      // setTimeout(() => {
+      //   toast.success('Success');
+      // }, 100); // Adjust the delay time as needed
+      //alert('Successful')
+      //navigate("/");
+      //toast.success("Success")
+    } catch (err) { }
   };
+
+  const notify = () => {
+    toast('Success');
+  }
+  const Click = () => {
+    handleClick()
+    notify()
+  }
   return (
     <div className="reserve">
       <div className="rContainer">
+        {/* <button onClick={notify}>hfgvghv</button> */}
         <FontAwesomeIcon
           icon={faCircleXmark}
           className="rClose"
           onClick={() => setOpen(false)}
         />
-        <span>Select your rooms:</span>
+        <span>Select your room(s):</span>
         {data.map((item) => (
           <div className="rItem" key={item._id}>
             <div className="rItemInfo">
@@ -87,7 +133,7 @@ const Reserve = ({ setOpen, hotelId }) => {
             </div>
             <div className="rSelectRooms">
               {item.roomNumbers.map((roomNumber) => (
-                <div className="room">
+                <div className="room" key={roomNumber._id}>
                   <label>{roomNumber.number}</label>
                   <input
                     type="checkbox"
@@ -100,9 +146,25 @@ const Reserve = ({ setOpen, hotelId }) => {
             </div>
           </div>
         ))}
-        <button onClick={handleClick} className="rButton">
+        <button onClick={handleClick} className="rButton" disabled={selectedRooms.length == 0} >
           Reserve Now!
         </button>
+        <Modal
+          show={smShow}
+          onHide={() => {
+            setSmShow(false);
+            setOpen(false);
+          }}
+          size="m"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-modal-sizes-title-sm">Congratulations!!!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>You have succesfully booked {options.room} room at <strong><em>{name}</em></strong>. <p>Thank you for your patronage, Enjoy your stay!!!.</p>  <img src={'https://i.pinimg.com/originals/d3/91/f7/d391f7e5687c2653c12119bea99cd335.gif'} alt="Emoji" className="emoji" /> </Modal.Body>
+        </Modal>
+        <ToastContainer />
       </div>
     </div>
   );

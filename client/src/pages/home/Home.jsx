@@ -10,8 +10,10 @@ import "./home.css";
 const Home = () => {
   return (
     <div>
+      <div className="navheaderwrap">
       <Navbar />
       <Header/>
+      </div>
       <div className="homeContainer">
         <Featured/>
         <h1 className="homeTitle">Browse by property type</h1>

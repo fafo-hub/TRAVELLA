@@ -8,10 +8,14 @@ const FeaturedProperties = () => {
   return (
     <div className="fp">
       {loading ? (
-        "Loading"
+        <>
+          <div className="loadings">
+            <img src="https://i.gifer.com/ZKZg.gif" alt="" />
+          </div>
+        </>
       ) : (
         <>
-          {data.map((item) => (
+          {data.slice(0, 4).map((item) => (
             <div className="fpItem" key={item._id}>
               <img
                 src={item.photos[0]}

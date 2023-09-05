@@ -4,13 +4,18 @@ import "./featured.css";
 const Featured = () => {
 
   const { data, loading, error } =
-   UseFetch("/hotels/countByCity?cities=berlin,madrid,london")
+    UseFetch("/hotels/countByCity?cities=Berlin,Madrid,London")
+
 
   // console.log(data);
   return (
     <div className="featured">
-            {loading ? (
-        "Loading please wait"
+      {loading ? (
+        <>
+          <div className="loadings">
+            <img src="https://i.gifer.com/ZKZg.gif" alt="" />
+          </div>
+        </>
       ) : (
         <>
           <div className="featuredItem">
@@ -49,7 +54,7 @@ const Featured = () => {
           </div>
         </>
       )}
-       </div>
+    </div>
   );
 };
 

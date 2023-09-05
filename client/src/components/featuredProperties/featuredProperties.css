@@ -44,3 +44,13 @@
 .fpRating>span{
   font-size: 14px;
 }
+
+.loadings {
+  height: unset;
+  display: unset;
+  background: inherit;
+}
+
+.loadings img {
+  width: 50px;
+}

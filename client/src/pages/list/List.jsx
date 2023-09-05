@@ -19,107 +19,148 @@ const List = () => {
   const [max, setMax] = useState(undefined);
 
   const { data, loading, error, reFetch } = UseFetch(
-    `/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
+    `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
 
   //console.log(location.state);
   const handleClick = () => {
     reFetch();
   };
+  // console.log(data);
+  console.log(location);
 
   return (
     <div>
-      <Navbar />
-      <Header type="list" />
-      <div className="listContainer">
-        <div className="listWrapper">
-          <div className="listSearch">
-            <h1 className="lsTitle">Search</h1>
-            <div className="lsItem">
-              <label>Destination</label>
-              <input placeholder={destination} type="text" />
-            </div>
-            <div className="lsItem">
-              <label>Check-in Date</label>
-              <span onClick={() => setOpenDate(!openDate)}>{`${format(
-                dates[0].startDate,
-                "MM/dd/yyyy"
-              )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
-              {openDate && (
-                <DateRange
-                  onChange={(item) => setDates([item.selection])}
-                  minDate={new Date()}
-                  ranges={dates}
-                />
-              )}
-            </div>
-            <div className="lsItem">
-              <label>Options</label>
-              <div className="lsOptions">
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">
-                    Min price <small>per night</small>
-                  </span>
-                  <input
-                    type="number"
-                    onChange={(e) => setMin(e.target.value)}
-                    className="lsOptionInput"
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">
-                    Max price <small>per night</small>
-                  </span>
-                  <input
-                    type="number"
-                    onChange={(e) => setMax(e.target.value)}
-                    className="lsOptionInput"
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Adult</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="lsOptionInput"
-                    placeholder={options.adult}
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Children</span>
-                  <input
-                    type="number"
-                    min={0}
-                    className="lsOptionInput"
-                    placeholder={options.children}
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Room</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="lsOptionInput"
-                    placeholder={options.room}
-                  />
-                </div>
-              </div>
-            </div>
-            <button onClick={handleClick}>Search</button>
+      {loading ? (
+        <>
+          <div className="navheaderwrap">
+            <Navbar />
+            <Header type="list" />
           </div>
-          <div className="listResult">
-            {loading ? (
-              "loading"
-            ) : (
+          <div className="loading">
+            <img src="https://i.gifer.com/ZKZg.gif" alt="" />
+          </div>
+        </>
+      ) :
+        (
+          <>
+            {data.length === 0 ?
+
               <>
-                {data.map((item) => (
-                  <SearchItem item={item} key={item._id} />
-                ))}
+                <div className="navheaderwrap">
+                  <Navbar />
+                  <Header type="list" />
+                </div>
+                <div className="not-available">
+                  <img src="https://static.vecteezy.com/system/resources/previews/009/796/821/original/house-not-available-on-white-background-not-available-sign-not-available-label-flat-style-vector.jpg" alt="" />
+                </div>
               </>
-            )}
-          </div>
-        </div>
-      </div>
+
+              :
+              <>
+                <div className="navheaderwrap">
+                  <Navbar />
+                  <Header type="list" />
+                </div>
+                <div className="listContainer">
+                  <div className="listWrapper">
+                    <div className="listSearch">
+                      <h1 className="lsTitle">Search</h1>
+                      <div className="lsItem">
+                        <label>Destination</label>
+                        <input placeholder={destination} type="text" disabled />
+                      </div>
+                      <div className="lsItem">
+                        <label>Check-in Date</label>
+                        <span onClick={() => setOpenDate(!openDate)}>{`${format(
+                          dates[0].startDate,
+                          "MM/dd/yyyy"
+                        )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
+                        {openDate && (
+                          <DateRange
+                            onChange={(item) => setDates([item.selection])}
+                            minDate={new Date()}
+                            ranges={dates}
+                            disabled
+                          />
+                        )}
+                      </div>
+                      <div className="lsItem">
+                        <label>Options</label>
+                        <div className="lsOptions">
+                          <div className="lsOptionItem">
+                            <span className="lsOptionText">
+                              Min price <small>per night</small>
+                            </span>
+                            <input
+                              type="number"
+                              onChange={(e) => setMin(e.target.value)}
+                              className="lsOptionInput"
+                              disabled
+                            />
+                          </div>
+                          <div className="lsOptionItem">
+                            <span className="lsOptionText">
+                              Max price <small>per night</small>
+                            </span>
+                            <input
+                              type="number"
+                              onChange={(e) => setMax(e.target.value)}
+                              className="lsOptionInput"
+                              disabled
+                            />
+                          </div>
+                          <div className="lsOptionItem">
+                            <span className="lsOptionText">Adult</span>
+                            <input
+                              type="number"
+                              min={1}
+                              className="lsOptionInput"
+                              placeholder={options.adult}
+                              disabled
+                            />
+                          </div>
+                          <div className="lsOptionItem">
+                            <span className="lsOptionText">Children</span>
+                            <input
+                              type="number"
+                              min={0}
+                              className="lsOptionInput"
+                              placeholder={options.children}
+                              disabled
+                            />
+                          </div>
+                          <div className="lsOptionItem">
+                            <span className="lsOptionText">Room</span>
+                            <input
+                              type="number"
+                              min={1}
+                              className="lsOptionInput"
+                              placeholder={options.room}
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <button onClick={handleClick}>Search</button>
+                    </div>
+                    <div className="listResult">
+                      {loading ? (
+                        "loading"
+                      ) : (
+                        <>
+                          {data.map((item) => (
+                            <SearchItem item={item} key={item._id} />
+                          ))}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </>
+            }
+          </>)
+      }
     </div>
   );
 };
