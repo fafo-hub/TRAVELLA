@@ -27,7 +27,7 @@ export const SearchContextProvider = ({ children }) => {
     localStorage.setItem("dates", JSON.stringify(state.dates));
   }, [state.options, state.dates]);
   //console.log(state.dates);
-  console.log(JSON.parse(localStorage.getItem("dates")));
+  //console.log(JSON.parse(localStorage.getItem("dates")));
   // console.log(JSON.parse(localStorage.getItem("dates")));
   // console.log(JSON.parse(localStorage.getItem("dates"))[0].startDate);
   // console.log(JSON.parse(localStorage.getItem("dates"))[0].endDate);

@@ -15,7 +15,7 @@ const FeaturedProperties = () => {
         </>
       ) : (
         <>
-          { (data ?? []).slice(0, 4).map((item) => (
+          { data ? data.slice(0, 4).map((item) => (
             <div className="fpItem" key={item._id}>
               <img
                 src={item.photos[0]}
@@ -30,7 +30,12 @@ const FeaturedProperties = () => {
                 <span>Excellent</span>
               </div>}
             </div>
-          ))}
+          ))
+        : 
+        (
+          <div> Loading </div>
+        )
+        }
         </>
       )}
     </div>
