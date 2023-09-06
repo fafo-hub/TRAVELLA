@@ -81,66 +81,7 @@ const Hotel = () => {
   // };
 
   const { dates, options } = useContext(SearchContext);
-  //console.log(dates);
-  //console.log(JSON.parse(localStorage.getItem("dates")));
 
-  // localStorage.setItem("oldDays", JSON.stringify(days));
-  // console.log(JSON.parse(localStorage.getItem("oldDays")));
-
-
-
-  // function formatDateToCustomFormat(isoDateString) {
-  //   const isoDate = new Date(isoDateString);
-  //   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  //   const months = [
-  //     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  //   ];
-
-  //   const dayOfWeek = daysOfWeek[isoDate.getUTCDay()];
-  //   const month = months[isoDate.getUTCMonth()];
-  //   const day = isoDate.getUTCDate();
-  //   const year = isoDate.getUTCFullYear();
-  //   const hours = isoDate.getUTCHours();
-  //   const minutes = isoDate.getUTCMinutes();
-  //   const seconds = isoDate.getUTCSeconds();
-  //   const timeZoneOffset = isoDate.toString().match(/([A-Z]+[\+-][0-9]+.*)/)[1];
-
-  //   const formattedDate = `${dayOfWeek} ${month} ${day} ${year} ${hours}:${minutes}:${seconds} ${timeZoneOffset}`;
-  //   return { formattedDate, timestamp: isoDate.getTime() };
-  // }
-
-  // const isoDateString = start; // Assuming "start" contains your ISO date string
-  // const { formattedDate, timestamp } = formatDateToCustomFormat(isoDateString);
-  // console.log(formattedDate);
-  // console.log(timestamp);
-
-
-
-  // console.log(Math.abs(start));
-  // console.log(end);
-
-  //const isoDateString = "2023-09-08T23:00:00.000Z";
-  //   const newIsoDateString = start;
-  //   const endIsoDateString = end;
-  // const newIsoDate = new Date(newIsoDateString);
-  // const oldIsoDate = new Date(endIsoDateString);
-
-  // const optionss = {
-  //   weekday: "short",
-  //   year: "numeric",
-  //   month: "short",
-  //   day: "2-digit",
-  //   hour: "2-digit",
-  //   minute: "2-digit",
-  //   second: "2-digit",
-  //   timeZoneName: "short",
-  // };
-
-  // const newStart = newIsoDate.toLocaleString("en-US", optionss);
-  // const newEnd = oldIsoDate.toLocaleString("en-US", optionss);
-  // console.log(newStart);
-  // console.log(newEnd);
-  console.log(JSON.parse(localStorage.getItem("dates"))[0]);
   const start = JSON.parse(localStorage.getItem("dates"))[0].startDate
   const end = JSON.parse(localStorage.getItem("dates"))[0].endDate
 
@@ -151,11 +92,11 @@ const Hotel = () => {
   // console.log(timestamp);
   const newStart = new Date(start)
   const newEnd = new Date(end)
-  console.log(newStart.getTime());
+  //console.log(newStart.getTime());
   localStorage.setItem("savedStart", JSON.stringify(newStart));
   localStorage.setItem("savedEnd", JSON.stringify(newEnd));
-  console.log(JSON.parse(localStorage.getItem("savedStart")));
-  console.log(JSON.parse(localStorage.getItem("savedEnd")));
+  // console.log(JSON.parse(localStorage.getItem("savedStart")));
+  // console.log(JSON.parse(localStorage.getItem("savedEnd")));
 
 
 
@@ -164,10 +105,10 @@ const Hotel = () => {
     const timeDiff = Math.abs(date2.getTime() - date1.getTime());
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
 
-    console.log(date2.getTime());
+    //console.log(date2.getTime());
     return diffDays;
   }
-  console.log(dates[0].startDate);
+  //console.log(dates[0].startDate);
 
 
   const days = dayDifference(newEnd, newStart);

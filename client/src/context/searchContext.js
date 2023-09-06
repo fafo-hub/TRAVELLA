@@ -26,13 +26,6 @@ export const SearchContextProvider = ({ children }) => {
     localStorage.setItem("options", JSON.stringify(state.options));
     localStorage.setItem("dates", JSON.stringify(state.dates));
   }, [state.options, state.dates]);
-  //console.log(state.dates);
-  //        console.log(JSON.parse(localStorage.getItem("dates")));
-  // console.log(JSON.parse(localStorage.getItem("dates")));
-  // console.log(JSON.parse(localStorage.getItem("dates"))[0].startDate);
-  // console.log(JSON.parse(localStorage.getItem("dates"))[0].endDate);
-  // const test = JSON.parse(localStorage.getItem("dates"))[0].startDate
-  //console.log(test.getTime());
 
   return (
     <SearchContext.Provider

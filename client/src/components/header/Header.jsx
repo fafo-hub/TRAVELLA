@@ -55,12 +55,6 @@ const Header = ({ type }) => {
 
 
   const { dispatch, state, data } = useContext(SearchContext);
-  //console.log(state);
-  // dates[0].endDate.getTime() > dates[0].startDate.getTime() ? console.log('correct') : console.log("wrong");
-
-  // console.log(dates[0].endDate.getTime());
-  // console.log(dates[0].startDate.getTime());
-  //console.log(destination);
 
 
   return (
@@ -101,7 +95,7 @@ const Header = ({ type }) => {
               Get rewarded for your travels – unlock instant savings of 10% or
               more with a free Lamabooking account
             </p>
-            {!user && <button className="headerBtn">Sign in / Register</button>}
+            {/* {!user && <button className="headerBtn">Sign in / Register</button>} */}
             <div>
               <div className="headerSearch">
                 <div className="headerSearchItem">

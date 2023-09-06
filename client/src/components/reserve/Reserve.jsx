@@ -26,7 +26,7 @@ const Reserve = ({ setOpen, hotelId, name }) => {
 
   //http://localhost:8800/api/hotels/room/64be93f499b79e9fb37218c1
   const { dates, options } = useContext(SearchContext);
-  console.log(data);
+  //console.log(data);
   //console.log(dates);
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -62,16 +62,16 @@ const Reserve = ({ setOpen, hotelId, name }) => {
         ? [...selectedRooms, value]
         : selectedRooms.filter((item) => item !== value)
     );
-    console.log(selectedRooms)
+    //console.log(selectedRooms)
 
     // console.log(value);
     // console.log(checked);
     // console.log(data);
   };
   useEffect(() => {
-    console.log(selectedRooms);
+    //console.log(selectedRooms);
   }, [selectedRooms])
-  console.log(options);
+  //console.log(options);
 
   //console.log(location);
   //selectedRooms.length == 0 ? console.log('e didnt dy') : console.log('e dy');

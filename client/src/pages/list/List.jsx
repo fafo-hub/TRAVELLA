@@ -27,7 +27,7 @@ const List = () => {
     reFetch();
   };
   // console.log(data);
-  console.log(location);
+  //console.log(location);
 
   return (
     <div>

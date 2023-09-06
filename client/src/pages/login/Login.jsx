@@ -19,58 +19,37 @@ const Login = () => {
 
   const { data, loading, error, dispatch } = useContext(AuthContext);
   //console.log(data, loading);
-  console.log(JSON.parse(localStorage.getItem("datas")));
+  //console.log(JSON.parse(localStorage.getItem("datas")));
   const Id = JSON.parse(localStorage.getItem("datas"));
-  console.log(Id._id);
+  //console.log(Id._id);
  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  const baseURL = process.env.REACT_APP_API_URL
+
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
       //console.log('credentials');
-      const res = await axios.post("/auth/login", credentials);
-      console.log(res);
+      const res = await axios.post( baseURL + "/auth/login", credentials);
+      //console.log(res);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       navigate(`/hotels/${Id._id}`)
-      //toast.success(loading)
-      //console.log(error.message);
+      {Id._id ? navigate(`/hotels/${Id._id}`) : navigate('/')}
+      
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
-      console.log(error);
-      console.log(err);
-      // toast.error(error.message)
-      //error.message ? toast.error(error.message) : null
-      // if (error.message) {
-      //   toast.error(error.message)
-      // } else {
-      //   toast.success('')
-      // }
+      toast.error(err.response.data.message)
+      //console.log(err);
+      //console.log(error);
+      //console.log(err);
     }
   };
-  // useEffect(() => {
-  //   error ? toast.error(error.message) : console.log('nil');
-  // }, [error])
 
-
-  useEffect(() => {
-    handleClick()
-    error ? toast.error(error.message) : console.log('nil');
-  }, [error])
-
-
-  //console.log(user);
-  // const notify = () => {
-  //     toast('error.message');
-  // }
-  // const click = (e) => {
-  //   handleClick(e)
-  //   notify()
-  // }
 
 
   return (

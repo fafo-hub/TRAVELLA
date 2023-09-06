@@ -11,9 +11,10 @@ const Navbar = () => {
   const { loading, error, dispatch } = useContext(AuthContext);
 
   const Logout = ()=> {
-    console.log(user);
-    localStorage.clear(user)
+    //console.log(user);
+    //localStorage.clear(user)
     dispatch({ type: "LOGOUT"});
+    //navigate('/login')
   }
 
   const Login = ()=> {
