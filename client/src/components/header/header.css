@@ -80,6 +80,9 @@
   bottom: -25px;
   width: 100%;
   max-width: 1024px;
+
+  display: grid;
+  grid-template-columns: 267px auto auto auto;
 }
 
 .headerIcon {
@@ -90,12 +93,17 @@
   display: flex;
   align-items: center;
   gap: 10px;
+
+  position: relative;
+    bottom: 7%;
 }
 
 
 .headerSearchInput {
   border: none;
   outline: none;
+
+  width: -webkit-fill-available;
 }
 
 .headerSearchInput::placeholder {

@@ -63,19 +63,12 @@ const Reserve = ({ setOpen, hotelId, name }) => {
         ? [...selectedRooms, value]
         : selectedRooms.filter((item) => item !== value)
     );
-    //console.log(selectedRooms)
-
-    // console.log(value);
-    // console.log(checked);
-    // console.log(data);
+ 
   };
   useEffect(() => {
     //console.log(selectedRooms);
   }, [selectedRooms])
-  //console.log(options);
 
-  //console.log(location);
-  //selectedRooms.length == 0 ? console.log('e didnt dy') : console.log('e dy');
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -89,19 +82,9 @@ const Reserve = ({ setOpen, hotelId, name }) => {
           return res.data;
         })
       );
-      //console.log('clicked')
 
-
-      //setOpen(false);
-      // <MyVerticallyCenteredModal />
       setSmShow(true)
-      // Show the success notification after a brief delay
-      // setTimeout(() => {
-      //   toast.success('Success');
-      // }, 100); // Adjust the delay time as needed
-      //alert('Successful')
-      //navigate("/");
-      //toast.success("Success")
+
     } catch (err) { }
   };
 
@@ -112,10 +95,10 @@ const Reserve = ({ setOpen, hotelId, name }) => {
     handleClick()
     notify()
   }
+  console.log(data);
   return (
     <div className="reserve">
       <div className="rContainer">
-        {/* <button onClick={notify}>hfgvghv</button> */}
         <FontAwesomeIcon
           icon={faCircleXmark}
           className="rClose"

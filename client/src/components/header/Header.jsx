@@ -102,7 +102,7 @@ const Header = ({ type }) => {
                   <FontAwesomeIcon icon={faBed} className="headerIcon" />
                   <input
                     type="text"
-                    placeholder={"Last destination:" + JSON.parse(localStorage.getItem("destination")) || "Where are you going?"}
+                    placeholder = { JSON.parse(localStorage.getItem("destination")) ? "Last destination: " + JSON.parse(localStorage.getItem("destination")) : "Destination? (capitalize each word)" }
                     className="headerSearchInput"
                     onChange={(e) => setDestination(e.target.value)}
                   />
