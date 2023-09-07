@@ -82,7 +82,7 @@ const Reserve = ({ setOpen, hotelId, name }) => {
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
-          const res = axios.put(`https://travella-six.vercel.app/rooms/availability/${roomId}`, {
+          const res = axios.put(`https://travella-ckru.onrender.com/api/rooms/availability/${roomId}`, {
             dates: alldates,
           });
           //toast.success("Success")
