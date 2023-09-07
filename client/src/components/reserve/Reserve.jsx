@@ -22,6 +22,7 @@ const Reserve = ({ setOpen, hotelId, name }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [smShow, setSmShow] = useState(false);
   const [roomNo, setRoomNo] = useState([])
+  const baseURL = process.env.REACT_APP_API_URL
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
 
   //http://localhost:8800/api/hotels/room/64be93f499b79e9fb37218c1
@@ -81,7 +82,7 @@ const Reserve = ({ setOpen, hotelId, name }) => {
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
-          const res = axios.put(`/rooms/availability/${roomId}`, {
+          const res = axios.put(`https://travella-six.vercel.app/rooms/availability/${roomId}`, {
             dates: alldates,
           });
           //toast.success("Success")

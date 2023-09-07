@@ -7,7 +7,7 @@ const UseFetch = (url) => {
   const [error, setError] = useState(false);
 
   const baseURL = process.env.REACT_APP_API_URL
-  //console.log(baseURL);
+  console.log(baseURL);
 
   useEffect(() => {
     localStorage.setItem("datas", JSON.stringify(data));
